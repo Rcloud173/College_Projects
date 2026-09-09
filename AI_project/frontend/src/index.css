@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --color-paper: #f3efe6;
+  --color-surface: #fffcf7;
+  --color-ink: #1e1b16;
+  --color-muted: #5e584f;
+  --color-line: #d8d0c2;
+  --color-accent: #6b2d38;
+  --color-accent-dark: #4f2129;
+  --color-ok: #2f4a28;
+  --color-ok-bg: #eef3e8;
+  --color-warn: #8a3b1d;
+  --color-warn-bg: #f7eee8;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  a,
+  button {
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .field {
+    margin-top: 0.25rem;
+    width: 100%;
+    border: 1px solid var(--color-line);
+    border-radius: 4px;
+    background: #fff;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+  }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 1px var(--color-accent);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 0.5rem 0.95rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-accent-dark);
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--color-line);
+    background: #fff;
+    color: var(--color-ink);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--color-paper);
+  }
+
+  .btn-danger {
+    border: 1px solid #d4b4b0;
+    background: #fff;
+    color: var(--color-accent);
+  }
+
+  .data-table {
+    width: 100%;
+    text-align: left;
+    font-size: 0.875rem;
+  }
+
+  .data-table th {
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.65rem 0.85rem;
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+
+  .data-table td {
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.75rem 0.85rem;
+    vertical-align: top;
+  }
+}

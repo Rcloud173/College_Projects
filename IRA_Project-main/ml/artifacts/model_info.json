@@ -1,0 +1,165 @@
+{
+  "trained_at": "2026-08-27T13:22:32.115150+00:00",
+  "random_state": 42,
+  "n_raw_rows": 105506,
+  "n_duplicates_removed": 19,
+  "n_train_class": 84389,
+  "n_test_class": 21098,
+  "classification": {
+    "task": "Dropout risk (Low / Medium / High)",
+    "target": "dropout_target",
+    "features": [
+      "attendance",
+      "current_test_score",
+      "current_assignment_score",
+      "previous_test_score",
+      "previous_assignment_score",
+      "fees",
+      "gender"
+    ],
+    "best_model": "LogisticRegression",
+    "selection_metric": "f1_macro",
+    "candidates": [
+      {
+        "model": "LogisticRegression",
+        "accuracy": 0.8555313299838847,
+        "f1_macro": 0.859345891925099,
+        "precision_macro": 0.8572073976762448,
+        "recall_macro": 0.8620189122335193
+      },
+      {
+        "model": "DecisionTree",
+        "accuracy": 0.8364773912219168,
+        "f1_macro": 0.8407409279335352,
+        "precision_macro": 0.83825895857971,
+        "recall_macro": 0.8439684139152283
+      },
+      {
+        "model": "RandomForest",
+        "accuracy": 0.8538250071096787,
+        "f1_macro": 0.8577802828672486,
+        "precision_macro": 0.8563832098858706,
+        "recall_macro": 0.8593727665605014
+      },
+      {
+        "model": "HistGradientBoosting",
+        "accuracy": 0.8534932221063608,
+        "f1_macro": 0.8573519615205741,
+        "precision_macro": 0.8551761464693762,
+        "recall_macro": 0.8600834663219153
+      }
+    ],
+    "test_metrics": {
+      "model": "LogisticRegression",
+      "accuracy": 0.8555313299838847,
+      "f1_macro": 0.859345891925099,
+      "precision_macro": 0.8572073976762448,
+      "recall_macro": 0.8620189122335193
+    },
+    "per_class": {
+      "High Risk": {
+        "precision": 0.8706711615078149,
+        "recall": 0.8976303317535546,
+        "f1": 0.8839452395768512,
+        "support": 6330.0
+      },
+      "Low Risk": {
+        "precision": 0.8666461822092487,
+        "recall": 0.8912940432927793,
+        "f1": 0.8787973204548996,
+        "support": 6329.0
+      },
+      "Medium Risk": {
+        "precision": 0.8343048493116706,
+        "recall": 0.7971323616542244,
+        "f1": 0.8152951157435462,
+        "support": 8439.0
+      }
+    },
+    "confusion_matrix_labels": [
+      "Low Risk",
+      "Medium Risk",
+      "High Risk"
+    ],
+    "confusion_matrix": [
+      [
+        5641,
+        688,
+        0
+      ],
+      [
+        868,
+        6727,
+        844
+      ],
+      [
+        0,
+        648,
+        5682
+      ]
+    ]
+  },
+  "regression": {
+    "task": "Academic performance (mean of current test and assignment scores)",
+    "target": "academic_performance",
+    "features": [
+      "attendance",
+      "previous_test_score",
+      "previous_assignment_score",
+      "fees",
+      "gender"
+    ],
+    "best_model": "LinearRegression",
+    "selection_metric": "r2",
+    "candidates": [
+      {
+        "model": "LinearRegression",
+        "r2": 0.5810397965788437,
+        "mae": 5.638415266275059,
+        "mse": 49.96327209906553,
+        "rmse": 7.068470279987427
+      },
+      {
+        "model": "Ridge",
+        "r2": 0.5810397313660984,
+        "mae": 5.638415423259164,
+        "mse": 49.9632798760384,
+        "rmse": 7.0684708301045145
+      },
+      {
+        "model": "DecisionTree",
+        "r2": 0.5546257464436353,
+        "mae": 5.810128657435624,
+        "mse": 53.11329055754218,
+        "rmse": 7.2878865631637115
+      },
+      {
+        "model": "RandomForest",
+        "r2": 0.567582776223951,
+        "mae": 5.729652709398734,
+        "mse": 51.56809461954317,
+        "rmse": 7.1810928569085615
+      },
+      {
+        "model": "HistGradientBoosting",
+        "r2": 0.5783272217717879,
+        "mae": 5.654703179290272,
+        "mse": 50.28676132803596,
+        "rmse": 7.091315909479421
+      }
+    ],
+    "test_metrics": {
+      "model": "LinearRegression",
+      "r2": 0.5810397965788437,
+      "mae": 5.638415266275059,
+      "mse": 49.96327209906553,
+      "rmse": 7.068470279987427
+    }
+  },
+  "preprocessing": {
+    "numeric": "median impute + RobustScaler (outlier-robust)",
+    "categorical": "mode impute + OneHotEncoder",
+    "split": "80/20, stratified for classification, random_state=42",
+    "class_imbalance": "class_weight=balanced (30/40/30 is mild)"
+  }
+}

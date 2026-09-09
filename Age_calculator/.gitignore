@@ -1,0 +1,44 @@
+# Android Studio / IntelliJ
+*.iml
+.idea/
+.gradle/
+local.properties
+
+# Build output
+build/
+**/build/
+captures/
+**/captures/
+
+# Native build
+.externalNativeBuild/
+.cxx/
+
+# Compiled / generated files
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+bin/
+gen/
+out/
+.navigation/
+
+# Generated output
+output.json
+
+# Logs
+*.log
+
+# Environment / secrets
+.env
+
+# Node.js (if used)
+node_modules/
+
+# Release files
+releases/
+
+# macOS
+.DS_Store

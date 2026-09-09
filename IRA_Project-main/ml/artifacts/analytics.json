@@ -1,0 +1,111 @@
+{
+  "n_raw": 105506,
+  "n_duplicates_removed": 19,
+  "n_clean": 105487,
+  "risk_distribution": {
+    "Low Risk": 31646,
+    "Medium Risk": 42191,
+    "High Risk": 31650
+  },
+  "fees_distribution": {
+    "Paid": 73434,
+    "Unpaid": 32053
+  },
+  "gender_distribution": {
+    "Male": 52791,
+    "Female": 52696
+  },
+  "risk_by_fees": {
+    "High Risk": {
+      "Paid": 15971,
+      "Unpaid": 15679
+    },
+    "Low Risk": {
+      "Paid": 27151,
+      "Unpaid": 4495
+    },
+    "Medium Risk": {
+      "Paid": 30312,
+      "Unpaid": 11879
+    }
+  },
+  "risk_by_gender": {
+    "High Risk": {
+      "Female": 15817,
+      "Male": 15833
+    },
+    "Low Risk": {
+      "Female": 15787,
+      "Male": 15859
+    },
+    "Medium Risk": {
+      "Female": 21092,
+      "Male": 21099
+    }
+  },
+  "numeric_summary": {
+    "attendance": {
+      "mean": 54.997042289571226,
+      "median": 55.0,
+      "std": 13.995584051828896,
+      "min": 0.0,
+      "max": 100.0
+    },
+    "current_test_score": {
+      "mean": 53.99875814081356,
+      "median": 54.0,
+      "std": 12.003193852456759,
+      "min": 3.0,
+      "max": 100.0
+    },
+    "current_assignment_score": {
+      "mean": 52.99878658033691,
+      "median": 53.0,
+      "std": 12.003398012804674,
+      "min": 0.0,
+      "max": 100.0
+    },
+    "previous_test_score": {
+      "mean": 51.99942172969181,
+      "median": 52.0,
+      "std": 13.001518510472437,
+      "min": 0.0,
+      "max": 100.0
+    },
+    "previous_assignment_score": {
+      "mean": 52.99951652810299,
+      "median": 53.0,
+      "std": 12.004419589214557,
+      "min": 1.0,
+      "max": 100.0
+    }
+  },
+  "risk_by_attendance_band": {
+    "(-0.001, 40.0]": {
+      "High Risk": 13736,
+      "Low Risk": 18,
+      "Medium Risk": 1948
+    },
+    "(40.0, 55.0]": {
+      "High Risk": 15387,
+      "Low Risk": 2596,
+      "Medium Risk": 20618
+    },
+    "(55.0, 70.0]": {
+      "High Risk": 2493,
+      "Low Risk": 16572,
+      "Medium Risk": 17995
+    },
+    "(70.0, 100.0]": {
+      "High Risk": 34,
+      "Low Risk": 12460,
+      "Medium Risk": 1630
+    }
+  },
+  "mean_academic_performance": 53.49877236057524,
+  "mean_performance_by_risk": {
+    "High Risk": 43.97478672985782,
+    "Low Risk": 63.17841117360804,
+    "Medium Risk": 53.38292526842218
+  }
+}

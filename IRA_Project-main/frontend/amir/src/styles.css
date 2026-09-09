@@ -1,0 +1,43 @@
+:root {
+  --bg: #111318;
+  --panel: #1b1f27;
+  --ink: #f4f4f5;
+  --muted: #a1a1aa;
+  --accent: #fb7185;
+  --line: #2a303b;
+  --danger: #fda4af;
+  font-family: "IBM Plex Sans", "Avenir Next", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; min-height: 100%; }
+body { background: var(--bg); color: var(--ink); overflow-x: hidden; }
+.lab { padding: 0 0 2rem; min-width: 0; }
+.mast { padding: 1.4rem clamp(1rem, 4vw, 2rem); background: linear-gradient(90deg, #fb7185, #f97316 55%, #facc15); color: #111; }
+.mast h1 { margin: 0.15rem 0; font-size: clamp(1.8rem, 5vw, 2.8rem); letter-spacing: -0.03em; }
+.mast p, .mast small { margin: 0.2rem 0 0; }
+.lab > .kpi-row, .stack, .state { padding: 0 clamp(1rem, 4vw, 2rem); }
+.kpi-row, .charts-grid, .metrics-grid, .predict-form { display: grid; gap: 0.75rem; }
+.kpi-row { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin: 1rem 0; }
+.kpi-card, .panel, .chart-card, .result-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem; }
+.kpi-label, .result-label { margin: 0; color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.kpi-value { margin: 0.2rem 0 0; color: var(--accent); }
+.predict-form { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+label { display: flex; flex-direction: column; gap: 0.28rem; font-size: 0.85rem; }
+input, select, button { width: 100%; border-radius: 6px; border: 1px solid var(--line); background: #101318; color: var(--ink); padding: 0.5rem; }
+button { background: var(--accent); color: #111; font-weight: 800; cursor: pointer; }
+.metrics-grid { grid-template-columns: 1fr; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th, td { text-align: left; padding: 0.35rem; border-bottom: 1px solid var(--line); }
+.charts-grid { grid-template-columns: 1fr; }
+.proba-list { list-style: none; padding: 0; }
+.proba-list li { display: flex; justify-content: space-between; }
+.insight-list { line-height: 1.5; }
+.state-error { color: var(--danger); }
+.risk-high-risk { background: #3f1d24; }
+.risk-medium-risk { background: #3f3518; }
+.risk-low-risk { background: #163226; }
+@media (min-width: 960px) {
+  .charts-grid { grid-template-columns: 1fr 1fr; }
+  .chart-wide { grid-column: 1 / -1; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+}
