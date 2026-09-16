@@ -1,0 +1,51 @@
+@model IEnumerable<PharmacyManagement.Web.Models.Medicine>
+@{
+    ViewData["Title"] = "Expired Medicine Report";
+}
+
+<div class="no-print">
+    <h1>Expired Medicine Report</h1>
+    <p>Medicines whose expiry date has already passed.</p>
+    <p><a asp-action="Index">All reports</a></p>
+    <partial name="_PrintButton" />
+</div>
+
+<h1 class="print-only">Expired Medicine Report</h1>
+<p class="print-only">Printed: @DateTime.Today.ToString("yyyy-MM-dd")</p>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Medicine</th>
+                <th>Category</th>
+                <th>Batch</th>
+                <th>Stock</th>
+                <th>Reorder Level</th>
+                <th>Selling Price</th>
+                <th>Expiry Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (!Model.Any())
+        {
+            <tr><td colspan="7">No expired medicines.</td></tr>
+        }
+        else
+        {
+            foreach (var medicine in Model)
+            {
+                <tr class="row-expired">
+                    <td>@medicine.Name</td>
+                    <td>@medicine.Category</td>
+                    <td>@medicine.BatchNumber</td>
+                    <td>@medicine.StockQuantity</td>
+                    <td>@medicine.ReorderLevel</td>
+                    <td>@medicine.SellingPrice.ToString("0.00")</td>
+                    <td>@medicine.ExpiryDate.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

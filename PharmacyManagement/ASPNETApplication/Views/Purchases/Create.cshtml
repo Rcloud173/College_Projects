@@ -1,0 +1,49 @@
+@model PharmacyManagement.Web.ViewModels.PurchaseFormViewModel
+@{
+    ViewData["Title"] = "New Purchase";
+}
+
+<h1>New Purchase</h1>
+<p>Stock will increase after a valid purchase is saved.</p>
+
+<form asp-action="Create" method="post" id="purchase-form">
+    <div asp-validation-summary="All" class="message-error"></div>
+    <div class="form-row">
+        <label asp-for="SupplierId"></label>
+        <select asp-for="SupplierId" asp-items="ViewBag.Suppliers">
+            <option value="0">-- Select supplier --</option>
+        </select>
+        <span asp-validation-for="SupplierId" class="field-error"></span>
+    </div>
+    <div class="form-row">
+        <label asp-for="MedicineId"></label>
+        <select asp-for="MedicineId" asp-items="ViewBag.Medicines">
+            <option value="0">-- Select medicine --</option>
+        </select>
+        <span asp-validation-for="MedicineId" class="field-error"></span>
+    </div>
+    <div class="form-row">
+        <label asp-for="Quantity"></label>
+        <input asp-for="Quantity" id="Quantity" />
+        <span asp-validation-for="Quantity" class="field-error"></span>
+    </div>
+    <div class="form-row">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" id="Price" />
+        <span asp-validation-for="Price" class="field-error"></span>
+    </div>
+    <p><strong>Total:</strong> <span id="line-total">0.00</span></p>
+    <button type="submit">Save purchase</button>
+    <a asp-action="Index">Cancel</a>
+</form>
+
+<script>
+    function updateTotal() {
+        var qty = parseFloat(document.getElementById("Quantity").value) || 0;
+        var price = parseFloat(document.getElementById("Price").value) || 0;
+        document.getElementById("line-total").innerText = (qty * price).toFixed(2);
+    }
+    document.getElementById("Quantity").addEventListener("input", updateTotal);
+    document.getElementById("Price").addEventListener("input", updateTotal);
+    updateTotal();
+</script>

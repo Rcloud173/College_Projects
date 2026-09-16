@@ -1,0 +1,94 @@
+@model IEnumerable<PharmacyManagement.Web.Models.Medicine>
+@{
+    ViewData["Title"] = "Medicines";
+}
+
+<h1>Medicines</h1>
+<p>View, search, add, edit and delete medicines.</p>
+
+<form method="get" class="search-form">
+    <input type="text" name="search" value="@ViewBag.Search" placeholder="Search by name" />
+    <select name="category">
+        <option value="">All categories</option>
+        @if (ViewBag.Categories != null)
+        {
+            foreach (string category in ViewBag.Categories)
+            {
+                if (ViewBag.Category == category)
+                {
+                    <option value="@category" selected="selected">@category</option>
+                }
+                else
+                {
+                    <option value="@category">@category</option>
+                }
+            }
+        }
+    </select>
+    <button type="submit">Search</button>
+    <a asp-action="Index">Clear</a>
+    <a asp-action="Create" class="button-link">Add Medicine</a>
+</form>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Batch</th>
+                <th>Expiry</th>
+                <th>Selling price</th>
+                <th>Stock</th>
+                <th>Reorder</th>
+                <th>Supplier</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="10">No medicines found.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var medicine in Model)
+            {
+                string rowClass = medicine.IsExpired ? "row-expired" : (medicine.IsLowStock ? "row-lowstock" : "");
+                <tr class="@rowClass">
+                    <td>@medicine.Name</td>
+                    <td>@medicine.Category</td>
+                    <td>@medicine.BatchNumber</td>
+                    <td>@medicine.ExpiryDate.ToString("yyyy-MM-dd")</td>
+                    <td>@medicine.SellingPrice.ToString("0.00")</td>
+                    <td>@medicine.StockQuantity</td>
+                    <td>@medicine.ReorderLevel</td>
+                    <td>@(medicine.Supplier != null ? medicine.Supplier.Name : "-")</td>
+                    <td>
+                        @if (medicine.IsExpired)
+                        {
+                            <span class="badge-expired">Expired</span>
+                        }
+                        else if (medicine.IsLowStock)
+                        {
+                            <span class="badge-lowstock">Low stock</span>
+                        }
+                        else
+                        {
+                            <span>OK</span>
+                        }
+                    </td>
+                    <td class="actions">
+                        <a asp-action="Details" asp-route-id="@medicine.MedicineId">Details</a>
+                        <a asp-action="Edit" asp-route-id="@medicine.MedicineId">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@medicine.MedicineId">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,32 @@
+@model PharmacyManagement.Web.ViewModels.SaleFormViewModel
+@{
+    ViewData["Title"] = "New Sale";
+}
+
+<h1>New Sale</h1>
+<p>The selling price comes from the medicine record. Expired medicines and overselling are rejected. Stock decreases only after a valid sale is saved.</p>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="message-error"></div>
+    <div class="form-row">
+        <label asp-for="CustomerId"></label>
+        <select asp-for="CustomerId" asp-items="ViewBag.Customers">
+            <option value="0">-- Select customer --</option>
+        </select>
+        <span asp-validation-for="CustomerId" class="field-error"></span>
+    </div>
+    <div class="form-row">
+        <label asp-for="MedicineId"></label>
+        <select asp-for="MedicineId" asp-items="ViewBag.Medicines">
+            <option value="0">-- Select medicine --</option>
+        </select>
+        <span asp-validation-for="MedicineId" class="field-error"></span>
+    </div>
+    <div class="form-row">
+        <label asp-for="Quantity"></label>
+        <input asp-for="Quantity" />
+        <span asp-validation-for="Quantity" class="field-error"></span>
+    </div>
+    <button type="submit">Save sale</button>
+    <a asp-action="Index">Cancel</a>
+</form>

@@ -1,0 +1,13 @@
+@model PharmacyManagement.Web.Models.Medicine
+@{
+    ViewData["Title"] = "Add Medicine";
+}
+
+<h1>Add Medicine</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="message-error"></div>
+    <partial name="_Form" />
+    <button type="submit">Save</button>
+    <a asp-action="Index">Cancel</a>
+</form>

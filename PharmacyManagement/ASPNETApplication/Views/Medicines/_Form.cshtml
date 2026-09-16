@@ -1,0 +1,49 @@
+@model PharmacyManagement.Web.Models.Medicine
+
+<div class="form-row">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    <span asp-validation-for="Name" class="field-error"></span>
+</div>
+<div class="form-row">
+    <label asp-for="Category"></label>
+    <input asp-for="Category" />
+    <span asp-validation-for="Category" class="field-error"></span>
+</div>
+<div class="form-row">
+    <label asp-for="BatchNumber"></label>
+    <input asp-for="BatchNumber" />
+    <span asp-validation-for="BatchNumber" class="field-error"></span>
+</div>
+<div class="form-row">
+    <label asp-for="ExpiryDate"></label>
+    <input asp-for="ExpiryDate" type="date" asp-format="{0:yyyy-MM-dd}" />
+    <span asp-validation-for="ExpiryDate" class="field-error"></span>
+</div>
+<div class="form-row">
+    <label asp-for="PurchasePrice"></label>
+    <input asp-for="PurchasePrice" />
+    <span asp-validation-for="PurchasePrice" class="field-error"></span>
+</div>
+<div class="form-row">
+    <label asp-for="SellingPrice"></label>
+    <input asp-for="SellingPrice" />
+    <span asp-validation-for="SellingPrice" class="field-error"></span>
+</div>
+<div class="form-row">
+    <label asp-for="StockQuantity"></label>
+    <input asp-for="StockQuantity" />
+    <span asp-validation-for="StockQuantity" class="field-error"></span>
+</div>
+<div class="form-row">
+    <label asp-for="ReorderLevel"></label>
+    <input asp-for="ReorderLevel" />
+    <span asp-validation-for="ReorderLevel" class="field-error"></span>
+</div>
+<div class="form-row">
+    <label asp-for="SupplierId"></label>
+    <select asp-for="SupplierId" asp-items="ViewBag.Suppliers">
+        <option value="0">-- Select supplier --</option>
+    </select>
+    <span asp-validation-for="SupplierId" class="field-error"></span>
+</div>

@@ -1,0 +1,69 @@
+@model IEnumerable<PharmacyManagement.Web.Models.Purchase>
+@{
+    ViewData["Title"] = "Purchase Report";
+}
+
+<div class="no-print">
+    <h1>Purchase Report</h1>
+    <p><a asp-action="Index">All reports</a></p>
+    <partial name="_PrintButton" />
+
+    <form method="get" class="search-form">
+        <select name="supplierId" asp-items="ViewBag.Suppliers">
+            <option value="">All suppliers</option>
+        </select>
+        <select name="medicineId" asp-items="ViewBag.Medicines">
+            <option value="">All medicines</option>
+        </select>
+        <input type="date" name="date" value="@ViewBag.Date" />
+        <button type="submit">Filter</button>
+        <a asp-action="Purchases">Clear</a>
+    </form>
+</div>
+
+<h1 class="print-only">Purchase Report</h1>
+<p class="print-only">Printed: @DateTime.Today.ToString("yyyy-MM-dd")</p>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Purchase ID</th>
+                <th>Date</th>
+                <th>Supplier</th>
+                <th>Medicine</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            bool any = false;
+        }
+        @foreach (var purchase in Model)
+        {
+            if (purchase.PurchaseItems != null)
+            {
+                foreach (var item in purchase.PurchaseItems)
+                {
+                    any = true;
+                    <tr>
+                        <td>@purchase.PurchaseId</td>
+                        <td>@purchase.PurchaseDate.ToString("yyyy-MM-dd")</td>
+                        <td>@(purchase.Supplier != null ? purchase.Supplier.Name : "-")</td>
+                        <td>@(item.Medicine != null ? item.Medicine.Name : "-")</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price.ToString("0.00")</td>
+                        <td>@item.Total.ToString("0.00")</td>
+                    </tr>
+                }
+            }
+        }
+        @if (!any)
+        {
+            <tr><td colspan="7">No purchases match the filter.</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

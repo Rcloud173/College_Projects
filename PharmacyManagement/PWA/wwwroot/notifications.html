@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b5c4b">
+    <title>Notifications — Pharmacy PWA</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+    <header class="topbar">
+        <h1>Notifications</h1>
+        <p>Local browser reminders for low stock and expiry</p>
+    </header>
+    <nav>
+        <a href="/index.html">Home</a>
+        <a href="/medicines.html">Medicines</a>
+        <a href="/search.html">Search</a>
+        <a href="/stock.html">Stock</a>
+        <a class="active" href="/notifications.html">Alerts</a>
+        <a href="/dashboard.html">Dashboard</a>
+    </nav>
+    <div id="offline-banner" class="offline-banner">You are offline. Cached features are still available.</div>
+    <main>
+        <div class="note">
+            <p><strong>Permission status:</strong> <span id="permission-status">Checking...</span></p>
+            <p id="permission-message"></p>
+            <p>
+                <button id="enable-notifications" type="button">Enable Notifications</button>
+            </p>
+            <p>Permission is requested only when you click the button. If you block it, this page still shows the alerts below.</p>
+        </div>
+
+        <h2>Low-stock alerts</h2>
+        <ul id="low-stock-alerts"></ul>
+
+        <h2>Expiry alerts</h2>
+        <ul id="expiry-alerts"></ul>
+    </main>
+    <script src="/js/app.js"></script>
+    <script src="/js/medicines-data.js"></script>
+    <script src="/js/notifications.js"></script>
+</body>
+</html>

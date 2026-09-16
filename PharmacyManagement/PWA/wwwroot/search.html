@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b5c4b">
+    <title>Quick Search — Pharmacy PWA</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+    <header class="topbar">
+        <h1>Quick Search</h1>
+        <p>Search demo medicines by name or category</p>
+    </header>
+    <nav>
+        <a href="/index.html">Home</a>
+        <a href="/medicines.html">Medicines</a>
+        <a class="active" href="/search.html">Search</a>
+        <a href="/stock.html">Stock</a>
+        <a href="/notifications.html">Alerts</a>
+        <a href="/dashboard.html">Dashboard</a>
+    </nav>
+    <div id="cache-mode-banner" class="offline-banner"></div>
+    <main>
+        <form class="search-bar" onsubmit="return false;">
+            <input id="name-search" type="search" placeholder="Search by medicine name" autocomplete="off">
+            <select id="category-filter">
+                <option value="">All categories</option>
+            </select>
+        </form>
+
+        <div class="table-wrap results-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Medicine</th>
+                        <th>Category</th>
+                        <th>Batch</th>
+                        <th>Stock</th>
+                        <th>Selling price</th>
+                        <th>Expiry</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+
+        <div id="cards" class="results-cards"></div>
+        <p id="empty" class="empty-message">No medicines found</p>
+    </main>
+    <script src="/js/app.js"></script>
+    <script src="/js/medicines-data.js"></script>
+    <script src="/js/medicine-store.js"></script>
+    <script src="/js/search.js"></script>
+</body>
+</html>

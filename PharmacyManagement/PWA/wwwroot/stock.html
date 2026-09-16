@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b5c4b">
+    <title>Stock Status — Pharmacy PWA</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+    <header class="topbar">
+        <h1>Stock Status</h1>
+        <p>Sample low-stock and expired items</p>
+    </header>
+    <nav>
+        <a href="/index.html">Home</a>
+        <a href="/medicines.html">Medicines</a>
+        <a href="/search.html">Search</a>
+        <a class="active" href="/stock.html">Stock</a>
+        <a href="/notifications.html">Alerts</a>
+        <a href="/dashboard.html">Dashboard</a>
+    </nav>
+    <div id="offline-banner" class="offline-banner">You are offline. Cached features are still available.</div>
+    <main>
+        <div class="note">
+            <p><strong>Low stock:</strong> Amoxicillin 250mg (15 / reorder 20)</p>
+            <p><strong>Expired:</strong> Cough Syrup 100ml</p>
+        </div>
+    </main>
+    <script src="/js/app.js"></script>
+</body>
+</html>

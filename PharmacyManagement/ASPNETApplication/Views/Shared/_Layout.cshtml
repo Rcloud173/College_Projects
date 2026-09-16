@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Pharmacy Management</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <div class="brand">Pharmacy Management System</div>
+        <nav>
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+                <a asp-controller="Medicines" asp-action="Index">Medicines</a>
+                <a asp-controller="Suppliers" asp-action="Index">Suppliers</a>
+                <a asp-controller="Customers" asp-action="Index">Customers</a>
+                <a asp-controller="Purchases" asp-action="Index">Purchases</a>
+                <a asp-controller="Sales" asp-action="Index">Sales</a>
+                <a asp-controller="Reports" asp-action="Index">Reports</a>
+                <a asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+                <a asp-controller="Account" asp-action="Logout">Logout</a>
+                <span class="user-label">Signed in as @User.Identity.Name</span>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login">Login</a>
+            }
+        </nav>
+    </header>
+    <main>
+        @if (TempData["Error"] != null)
+        {
+            <p class="message-error">@TempData["Error"]</p>
+        }
+        @if (TempData["Message"] != null && ViewContext.RouteData.Values["action"]?.ToString() != "Login")
+        {
+            <p class="message-success">@TempData["Message"]</p>
+        }
+        @RenderBody()
+    </main>
+    <footer>
+        Phase 2 — ASP.NET Core MVC
+    </footer>
+</body>
+</html>

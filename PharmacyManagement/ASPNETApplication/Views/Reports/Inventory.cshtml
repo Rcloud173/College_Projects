@@ -1,0 +1,101 @@
+@model IEnumerable<PharmacyManagement.Web.Models.Medicine>
+@{
+    ViewData["Title"] = "Inventory Report";
+}
+
+<div class="no-print">
+    <h1>Medicine / Inventory Report</h1>
+    <p><a asp-action="Index">All reports</a></p>
+    <partial name="_PrintButton" />
+
+    <form method="get" class="search-form">
+        <input type="text" name="name" value="@ViewBag.Name" placeholder="Medicine name" />
+        <select name="category">
+            <option value="">All categories</option>
+            @if (ViewBag.Categories != null)
+            {
+                foreach (string category in ViewBag.Categories)
+                {
+                    if (ViewBag.Category == category)
+                    {
+                        <option value="@category" selected="selected">@category</option>
+                    }
+                    else
+                    {
+                        <option value="@category">@category</option>
+                    }
+                }
+            }
+        </select>
+        <select name="stockStatus">
+            <option value="">All stock statuses</option>
+            @if (ViewBag.StockStatus == "OK")
+            {
+                <option value="OK" selected="selected">OK</option>
+            }
+            else
+            {
+                <option value="OK">OK</option>
+            }
+            @if (ViewBag.StockStatus == "LowStock")
+            {
+                <option value="LowStock" selected="selected">Low stock</option>
+            }
+            else
+            {
+                <option value="LowStock">Low stock</option>
+            }
+            @if (ViewBag.StockStatus == "Expired")
+            {
+                <option value="Expired" selected="selected">Expired</option>
+            }
+            else
+            {
+                <option value="Expired">Expired</option>
+            }
+        </select>
+        <button type="submit">Filter</button>
+        <a asp-action="Inventory">Clear</a>
+    </form>
+</div>
+
+<h1 class="print-only">Medicine / Inventory Report</h1>
+<p class="print-only">Printed: @DateTime.Today.ToString("yyyy-MM-dd")</p>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Medicine</th>
+                <th>Category</th>
+                <th>Batch</th>
+                <th>Stock</th>
+                <th>Reorder Level</th>
+                <th>Selling Price</th>
+                <th>Expiry Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (!Model.Any())
+        {
+            <tr><td colspan="7">No medicines match the filter.</td></tr>
+        }
+        else
+        {
+            foreach (var medicine in Model)
+            {
+                string rowClass = medicine.IsExpired ? "row-expired" : (medicine.IsLowStock ? "row-lowstock" : "");
+                <tr class="@rowClass">
+                    <td>@medicine.Name</td>
+                    <td>@medicine.Category</td>
+                    <td>@medicine.BatchNumber</td>
+                    <td>@medicine.StockQuantity</td>
+                    <td>@medicine.ReorderLevel</td>
+                    <td>@medicine.SellingPrice.ToString("0.00")</td>
+                    <td>@medicine.ExpiryDate.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

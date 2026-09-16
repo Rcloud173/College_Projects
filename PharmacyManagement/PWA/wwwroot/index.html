@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b5c4b">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Pharmacy PWA">
+    <title>Pharmacy Management System — PWA</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="icon" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+</head>
+<body>
+    <header class="topbar">
+        <h1>PHARMACY MANAGEMENT SYSTEM</h1>
+        <p>Phase 3 — PWA</p>
+    </header>
+    <nav>
+        <a class="active" href="/index.html">Home</a>
+        <a href="/medicines.html">Medicines</a>
+        <a href="/search.html">Search</a>
+        <a href="/stock.html">Stock</a>
+        <a href="/notifications.html">Alerts</a>
+        <a href="/dashboard.html">Dashboard</a>
+    </nav>
+    <div id="offline-banner" class="offline-banner">You are offline. Cached features are still available.</div>
+    <main>
+        <p>This is a basic installable pharmacy app. Full records stay in Phase 2 (ASP.NET + SQL Server).</p>
+        <div class="card-grid">
+            <a class="card" href="/medicines.html">
+                <h2>Medicines</h2>
+                <p>View a sample medicine list.</p>
+            </a>
+            <a class="card" href="/search.html">
+                <h2>Quick Search</h2>
+                <p>Search the sample list.</p>
+            </a>
+            <a class="card" href="/stock.html">
+                <h2>Stock Status</h2>
+                <p>See low-stock and expired samples.</p>
+            </a>
+            <a class="card" href="/notifications.html">
+                <h2>Notifications</h2>
+                <p>Low-stock and expiry reminders.</p>
+            </a>
+            <a class="card" href="/dashboard.html">
+                <h2>Dashboard</h2>
+                <p>Sample summary cards.</p>
+            </a>
+        </div>
+        <p>Use the browser Install icon, or click <strong>Install App</strong> when it appears.</p>
+        <p>
+            <button id="install-button" type="button">Install App</button>
+        </p>
+    </main>
+    <footer>Phase 3 PWA — independently runnable</footer>
+    <script src="/js/app.js"></script>
+</body>
+</html>

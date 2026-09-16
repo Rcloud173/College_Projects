@@ -1,0 +1,17 @@
+@model PharmacyManagement.Web.Models.Customer
+@{
+    ViewData["Title"] = "Delete Customer";
+}
+
+<h1>Delete Customer</h1>
+<p>Are you sure you want to delete this customer?</p>
+
+<p><strong>@Model.Name</strong></p>
+<p>@Model.Phone | @Model.Email</p>
+<p>@Model.Address</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="CustomerId" />
+    <button type="submit">Yes, delete</button>
+    <a asp-action="Index">Cancel</a>
+</form>

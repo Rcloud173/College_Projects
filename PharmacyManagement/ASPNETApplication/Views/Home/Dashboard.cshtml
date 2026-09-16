@@ -1,0 +1,156 @@
+@model PharmacyManagement.Web.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Dashboard</h1>
+<p>Live summary from the pharmacy database. Refresh this page after you add or change records.</p>
+
+<div class="card-grid">
+    <div class="stat-card">
+        <div class="stat-label">Total Medicines</div>
+        <div class="stat-value">@Model.TotalMedicines</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Total Suppliers</div>
+        <div class="stat-value">@Model.TotalSuppliers</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Total Customers</div>
+        <div class="stat-value">@Model.TotalCustomers</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Total Sales</div>
+        <div class="stat-value">@Model.TotalSales</div>
+        <div class="stat-note">Amount: @Model.TotalSalesAmount.ToString("0.00")</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Total Purchases</div>
+        <div class="stat-value">@Model.TotalPurchases</div>
+        <div class="stat-note">Amount: @Model.TotalPurchaseAmount.ToString("0.00")</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Current Stock</div>
+        <div class="stat-value">@Model.CurrentStock</div>
+        <div class="stat-note">Units in all medicines</div>
+    </div>
+    <div class="stat-card warning">
+        <div class="stat-label">Low Stock Medicines</div>
+        <div class="stat-value">@Model.LowStockCount</div>
+    </div>
+    <div class="stat-card danger">
+        <div class="stat-label">Expired Medicines</div>
+        <div class="stat-value">@Model.ExpiredCount</div>
+    </div>
+</div>
+
+<h2>Low-stock medicines</h2>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Reorder level</th>
+                <th>Expiry</th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (Model.LowStockMedicines == null || !Model.LowStockMedicines.Any())
+        {
+            <tr><td colspan="4">No low-stock medicines.</td></tr>
+        }
+        else
+        {
+            foreach (var medicine in Model.LowStockMedicines)
+            {
+                <tr class="row-lowstock">
+                    <td>@medicine.Name</td>
+                    <td>@medicine.StockQuantity</td>
+                    <td>@medicine.ReorderLevel</td>
+                    <td>@medicine.ExpiryDate.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
+
+<h2>Expired medicines</h2>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Expiry</th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (Model.ExpiredMedicines == null || !Model.ExpiredMedicines.Any())
+        {
+            <tr><td colspan="3">No expired medicines.</td></tr>
+        }
+        else
+        {
+            foreach (var medicine in Model.ExpiredMedicines)
+            {
+                <tr class="row-expired">
+                    <td>@medicine.Name</td>
+                    <td>@medicine.StockQuantity</td>
+                    <td>@medicine.ExpiryDate.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
+
+<h2>Recent sales</h2>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Medicine</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (Model.RecentSales == null || !Model.RecentSales.Any())
+        {
+            <tr><td colspan="5">No sales yet.</td></tr>
+        }
+        else
+        {
+            foreach (var sale in Model.RecentSales)
+            {
+                if (sale.SaleItems == null || !sale.SaleItems.Any())
+                {
+                    <tr>
+                        <td>@sale.SaleDate.ToString("yyyy-MM-dd")</td>
+                        <td>@(sale.Customer != null ? sale.Customer.Name : "-")</td>
+                        <td colspan="2">-</td>
+                        <td>@sale.TotalAmount.ToString("0.00")</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in sale.SaleItems)
+                    {
+                        <tr>
+                            <td>@sale.SaleDate.ToString("yyyy-MM-dd")</td>
+                            <td>@(sale.Customer != null ? sale.Customer.Name : "-")</td>
+                            <td>@(item.Medicine != null ? item.Medicine.Name : "-")</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Total.ToString("0.00")</td>
+                        </tr>
+                    }
+                }
+            }
+        }
+        </tbody>
+    </table>
+</div>

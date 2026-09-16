@@ -1,0 +1,69 @@
+@model IEnumerable<PharmacyManagement.Web.Models.Sale>
+@{
+    ViewData["Title"] = "Sales Report";
+}
+
+<div class="no-print">
+    <h1>Sales Report</h1>
+    <p><a asp-action="Index">All reports</a></p>
+    <partial name="_PrintButton" />
+
+    <form method="get" class="search-form">
+        <select name="customerId" asp-items="ViewBag.Customers">
+            <option value="">All customers</option>
+        </select>
+        <select name="medicineId" asp-items="ViewBag.Medicines">
+            <option value="">All medicines</option>
+        </select>
+        <input type="date" name="date" value="@ViewBag.Date" />
+        <button type="submit">Filter</button>
+        <a asp-action="Sales">Clear</a>
+    </form>
+</div>
+
+<h1 class="print-only">Sales Report</h1>
+<p class="print-only">Printed: @DateTime.Today.ToString("yyyy-MM-dd")</p>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Sale ID</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Medicine</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            bool any = false;
+        }
+        @foreach (var sale in Model)
+        {
+            if (sale.SaleItems != null)
+            {
+                foreach (var item in sale.SaleItems)
+                {
+                    any = true;
+                    <tr>
+                        <td>@sale.SaleId</td>
+                        <td>@sale.SaleDate.ToString("yyyy-MM-dd")</td>
+                        <td>@(sale.Customer != null ? sale.Customer.Name : "-")</td>
+                        <td>@(item.Medicine != null ? item.Medicine.Name : "-")</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price.ToString("0.00")</td>
+                        <td>@item.Total.ToString("0.00")</td>
+                    </tr>
+                }
+            }
+        }
+        @if (!any)
+        {
+            <tr><td colspan="7">No sales match the filter.</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

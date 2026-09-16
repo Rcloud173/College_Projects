@@ -1,0 +1,31 @@
+@model PharmacyManagement.Web.Models.Medicine
+@{
+    ViewData["Title"] = "Medicine Details";
+}
+
+<h1>Medicine Details</h1>
+
+@if (Model.IsExpired)
+{
+    <p class="badge-expired">This medicine is expired and should not be sold.</p>
+}
+else if (Model.IsLowStock)
+{
+    <p class="badge-lowstock">Stock is at or below the reorder level.</p>
+}
+
+<p><strong>Name:</strong> @Model.Name</p>
+<p><strong>Category:</strong> @Model.Category</p>
+<p><strong>Batch number:</strong> @Model.BatchNumber</p>
+<p><strong>Expiry date:</strong> @Model.ExpiryDate.ToString("yyyy-MM-dd")</p>
+<p><strong>Purchase price:</strong> @Model.PurchasePrice.ToString("0.00")</p>
+<p><strong>Selling price:</strong> @Model.SellingPrice.ToString("0.00")</p>
+<p><strong>Stock quantity:</strong> @Model.StockQuantity</p>
+<p><strong>Reorder level:</strong> @Model.ReorderLevel</p>
+<p><strong>Supplier:</strong> @(Model.Supplier != null ? Model.Supplier.Name : "-")</p>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.MedicineId">Edit</a> |
+    <a asp-action="Delete" asp-route-id="@Model.MedicineId">Delete</a> |
+    <a asp-action="Index">Back to list</a>
+</p>

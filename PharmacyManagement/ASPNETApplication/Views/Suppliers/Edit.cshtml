@@ -1,0 +1,14 @@
+@model PharmacyManagement.Web.Models.Supplier
+@{
+    ViewData["Title"] = "Edit Supplier";
+}
+
+<h1>Edit Supplier</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="SupplierId" />
+    <div asp-validation-summary="ModelOnly" class="message-error"></div>
+    <partial name="_Form" />
+    <button type="submit">Save changes</button>
+    <a asp-action="Index">Cancel</a>
+</form>
