@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Book = require("../models/Book");
 const Borrow = require("../models/Borrow");
+const Rating = require("../models/Rating");
 const { auth } = require("../middleware/auth");
 const { recommendBooks, WEIGHTS } = require("../recommend/recommend");
 
@@ -13,14 +14,17 @@ router.get("/", auth, async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    const [books, borrows] = await Promise.all([
+    const [books, borrows, ratings] = await Promise.all([
       Book.find(),
       Borrow.find({ user: req.user.id }).populate("book"),
+      Rating.find({ user: req.user.id }),
     ]);
 
     const borrowedBookIds = borrows
       .map((item) => item.book?._id || item.book)
       .filter(Boolean);
+
+    const ratedBookIds = ratings.map((item) => item.book).filter(Boolean);
 
     const borrowedGenres = borrows
       .map((item) => item.book?.genre)
@@ -29,6 +33,9 @@ router.get("/", auth, async (req, res) => {
     const recommendations = recommendBooks({
       books,
       borrowedBookIds,
+      ratedBookIds,
+      ratings,
+      borrows,
       interests: user.interests,
       borrowedGenres,
       limit: 8,
@@ -40,6 +47,7 @@ router.get("/", auth, async (req, res) => {
         interests: user.interests,
         borrowedGenres: [...new Set(borrowedGenres)],
         borrowedCount: borrowedBookIds.length,
+        ratedCount: ratings.length,
       },
       recommendations,
     });

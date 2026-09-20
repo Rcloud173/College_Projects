@@ -24,8 +24,8 @@ function Recommendations() {
   return (
     <section>
       <PageHeader eyebrow="Reading desk" title="Suggested for you">
-        Ranked from your saved subjects, genres you have borrowed, and collection ratings. Titles you
-        already borrowed are left out. Match score: 40% subject, 30% similar loans, 30% rating.
+        Ranked with item-to-item similarity from books you rated or borrowed. Titles you already
+        borrowed or rated are left out. Match is a relative similarity score, not model accuracy.
       </PageHeader>
 
       {data.student?.interests?.length ? (
@@ -40,7 +40,7 @@ function Recommendations() {
 
       {data.recommendations.length === 0 ? (
         <p className="mt-8 text-sm text-muted">
-          No suggestions yet. Add interests on your profile or leave some books unborrowed.
+          No suggestions yet. Borrow or rate a catalog title, or browse popular books on Home.
         </p>
       ) : null}
     </section>

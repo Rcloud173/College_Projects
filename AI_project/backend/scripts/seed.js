@@ -1,8 +1,12 @@
 require("dotenv").config();
 
+const fs = require("fs");
+const path = require("path");
 const mongoose = require("mongoose");
 const User = require("../models/User");
 const Book = require("../models/Book");
+
+const ML_CATALOG_PATH = path.join(__dirname, "..", "ml", "data", "processed", "library_catalog.csv");
 
 const books = [
   {
@@ -131,6 +135,8 @@ async function seed() {
   }
   console.log("Books synced with recommendation genres");
 
+  await seedMlCatalog();
+
   const adminEmail = "admin@library.test";
   const existingAdmin = await User.findOne({ email: adminEmail });
   if (!existingAdmin) {
@@ -147,6 +153,107 @@ async function seed() {
 
   await mongoose.disconnect();
   console.log("Seed complete");
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let field = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    if (inQuotes) {
+      if (char === '"') {
+        if (text[i + 1] === '"') {
+          field += '"';
+          i += 1;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        field += char;
+      }
+    } else if (char === '"') {
+      inQuotes = true;
+    } else if (char === ",") {
+      row.push(field);
+      field = "";
+    } else if (char === "\n") {
+      row.push(field);
+      rows.push(row);
+      row = [];
+      field = "";
+    } else if (char !== "\r") {
+      field += char;
+    }
+  }
+
+  if (field.length > 0 || row.length > 0) {
+    row.push(field);
+    rows.push(row);
+  }
+
+  return rows.filter((item) => item.length > 1 || (item[0] && item[0].trim()));
+}
+
+function genreFromRow(record) {
+  const category = (record.category || "").split(";")[0].trim();
+  const theme = (record.theme || "").split(";")[0].trim();
+  return category || theme;
+}
+
+async function seedMlCatalog() {
+  if (!fs.existsSync(ML_CATALOG_PATH)) {
+    console.log("ML catalog CSV not found, skipping ISBN catalog seed");
+    return;
+  }
+
+  const raw = fs.readFileSync(ML_CATALOG_PATH, "utf8");
+  const rows = parseCsv(raw);
+  const header = rows[0].map((item) => item.trim());
+  let added = 0;
+  let updated = 0;
+
+  for (const values of rows.slice(1)) {
+    const record = {};
+    header.forEach((key, index) => {
+      record[key] = values[index] === undefined ? "" : values[index];
+    });
+
+    const isbn = String(record.isbn || "").trim();
+    if (!isbn || !record.title || !record.author) continue;
+
+    const genre = genreFromRow(record);
+    if (!genre) continue;
+
+    const payload = {
+      title: record.title.trim(),
+      author: record.author.trim(),
+      description: (record.description || "").trim(),
+      genre,
+      isbn,
+      rating: 0,
+      totalCopies: 3,
+      availableCopies: 3,
+      coverImage: "",
+    };
+
+    const existing = await Book.findOne({ isbn });
+    if (existing) {
+      existing.title = payload.title;
+      existing.author = payload.author;
+      existing.description = payload.description;
+      existing.genre = payload.genre;
+      await existing.save();
+      updated += 1;
+    } else {
+      await Book.create(payload);
+      added += 1;
+    }
+  }
+
+  console.log(`ML catalog seed: added ${added}, updated ${updated}`);
 }
 
 seed().catch((error) => {

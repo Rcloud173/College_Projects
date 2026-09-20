@@ -41,6 +41,12 @@ const bookSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    isbn: {
+      type: String,
+      default: "",
+      trim: true,
+      index: true,
+    },
   },
   { timestamps: true }
 );

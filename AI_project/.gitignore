@@ -25,3 +25,9 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Python / Jupyter
+backend/ml/.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

@@ -120,6 +120,7 @@ function cleanBook(body = {}) {
     genre: body.genre,
     totalCopies,
     coverImage: body.coverImage || "",
+    isbn: body.isbn === undefined || body.isbn === null ? undefined : String(body.isbn).trim(),
   };
 
   if (availableCopies !== undefined) {
